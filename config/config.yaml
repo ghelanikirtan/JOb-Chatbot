@@ -1,0 +1,18 @@
+model_settings:
+  qa_model: "deepset/roberta-base-squad2"
+  retrieval_model: "facebook/dpr-question_encoder-single-nq-base"
+  
+api_settings:
+  careerjet:
+    endpoint: "http://public.api.careerjet.net/search"
+    locale: "en_US"
+    pagesize: 25
+    sort: "relevance"
+
+validation:
+  min_score: 0.6
+  max_retries: 3
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
