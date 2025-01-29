@@ -1,37 +1,29 @@
 import os
 
-def create_project_structure():
-    structure = {
-        "config": ["config.yaml", "__init__.py"],
-        "schemas": ["__init__.py", "schema.py"],
-        "services": ["__init__.py", "api_client.py", "rag_supervisor.py"],
-        "models": ["__init__.py", "agent.py"],
-        "utils": ["__init__.py", "logger.py", "config.py"],
-        "api": {
-            "": ["__init__.py", "main.py"],
-            "routes": ["__init__.py", "jobs.py"]
-        },
-        "web": ["__init__.py", "streamlit_app.py"],
-        "": [".env", "requirements.txt", "Dockerfile"]
-
-    def create_files_and_dirs(base_path, items):
-        for name, content in items.items():
-            if name:
-                path = os.path.join(base_path, name)
-                os.makedirs(path, exist_ok=True)
-            else:
-                path = base_path
-
-            if isinstance(content, list):
-                for file_name in content:
-                    file_path = os.path.join(path, file_name)
-                    open(file_path, 'w').close()
-            elif isinstance(content, dict):
-                create_files_and_dirs(path, content)
-
-    base_dir = os.getcwd()
-    create_files_and_dirs(base_dir, structure)
+def create_structure(base_path=""):
+    structure = [
+        ".env",
+        ".gitignore",
+        "backend/Dockerfile",
+        "backend/requirements.txt",
+        "backend/tests/test_api.py",
+        "backend/app/__init__.py",
+        "backend/app/main.py",
+        "backend/app/agents/job_search_agent.py",
+        "backend/app/config/settings.py",
+        "backend/app/schemas/models.py",
+        "frontend/Dockerfile",
+        "frontend/streamlit_app.py",
+        "frontend/requirements.txt",
+    ]
+    
+    for path in structure:
+        full_path = os.path.join(base_path, path)
+        dir_name = os.path.dirname(full_path)
+        if dir_name:
+            os.makedirs(dir_name, exist_ok=True)
+        with open(full_path, "w") as f:
+            pass  # Create an empty file
 
 if __name__ == "__main__":
-    create_project_structure()
-    print("Project structure created successfully.")
+    create_structure()
